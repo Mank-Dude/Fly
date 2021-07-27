@@ -1,0 +1,30 @@
+repeat wait() until game.Players.LocalPlayer.Character
+
+local player = game.Players.LocalPlayer
+local character = player.Character
+local humanoid = character:WaitForChild("Humanoid")
+local torso = character:WaitForChild("LowerTorso")
+local mouse = player:GetMouse()
+
+local enabled = false
+
+mouse.KeyDown:Connect(function(key)
+	if key =="f" then 
+		if enabled == false then
+			enabled = true
+			local bodyvelocity = Instance.new("BodyVelocity",torso)
+			bodyvelocity.MaxForce = Vector3.new(math.huge, math.huge,math.huge)
+			
+			while enabled == true do
+				bodyvelocity.Velocity = mouse.hit.lookVector * 100
+				wait()
+			end
+			
+		end
+		
+		if enabled == true then
+			enabled = false
+			torso:FindFirstChildOfClass("BodyVelocity"):Destroy()
+		end
+	end
+end)
